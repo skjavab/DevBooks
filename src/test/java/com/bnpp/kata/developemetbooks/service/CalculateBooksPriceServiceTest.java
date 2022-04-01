@@ -118,4 +118,17 @@ public class CalculateBooksPriceServiceTest {
 		Assertions.assertEquals(8, calculateBooksPriceService.getBookIdList(bookApiRequestList).size());
 	}
 
+	@Test
+	public void probabilityOfBookCombination() {
+		bookApiRequestList = new ArrayList<>();
+		setShoppingCart(1, 2);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(2, 2);
+		bookApiRequestList.add(bookApiRequest);
+
+		List<Integer> numbrerOfbooks = calculateBooksPriceService.getBookIdList(bookApiRequestList);
+
+		Assertions.assertEquals(2, calculateBooksPriceService.getDefaultBooksCombination(numbrerOfbooks).size());
+	}
+
 }
