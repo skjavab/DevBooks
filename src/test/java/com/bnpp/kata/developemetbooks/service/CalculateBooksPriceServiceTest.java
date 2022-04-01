@@ -3,6 +3,7 @@ package com.bnpp.kata.developemetbooks.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -10,6 +11,8 @@ import com.bnpp.kata.developemetbooks.model.BookApiRequest;
 
 public class CalculateBooksPriceServiceTest {
 	private BookApiRequest bookApiRequest;
+	private CalculateBooksPriceService calculateBooksPriceService;
+	private List<BookApiRequest> bookApiRequestList;
 
 	private void setShoppingCart(int bookId, int quantity) {
 		bookApiRequest = new BookApiRequest();
@@ -17,10 +20,14 @@ public class CalculateBooksPriceServiceTest {
 		bookApiRequest.setQuantity(quantity);
 	}
 
+	@Before
+	public void init() {
+		calculateBooksPriceService = new CalculateBooksPriceService();
+	}
+
 	@Test
 	public void calculatePriceShouldReturnFiftyWhenUserBuysOneBook() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestList = new ArrayList<>();
+		bookApiRequestList = new ArrayList<>();
 		setShoppingCart(1, 1);
 		bookApiRequestList.add(bookApiRequest);
 
@@ -29,8 +36,7 @@ public class CalculateBooksPriceServiceTest {
 
 	@Test
 	public void calculatePriceShouldReturn100WhenUserBuysTwoBook() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestList = new ArrayList<>();
+		bookApiRequestList = new ArrayList<>();
 		setShoppingCart(1, 2);
 		bookApiRequestList.add(bookApiRequest);
 
@@ -39,46 +45,43 @@ public class CalculateBooksPriceServiceTest {
 
 	@Test
 	public void calculatePriceShouldReturn95WhenUserBuysTwoDifferentBook() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestItem = new ArrayList<>();
+		bookApiRequestList = new ArrayList<>();
 		setShoppingCart(1, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(2, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(95d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestItem));
+		Assertions.assertEquals(95d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
 
 	}
 
 	@Test
 	public void calculatePriceShouldReturn135WhenUserBuysThreeDifferentBook() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestItem = new ArrayList<>();
+		bookApiRequestList = new ArrayList<>();
 		setShoppingCart(1, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(2, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(3, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(135d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestItem));
+		Assertions.assertEquals(135d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
 
 	}
 
 	@Test
 	public void calculatePriceShouldReturn160WhenUserBuysFourDifferentBook() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestItem = new ArrayList<>();
+		bookApiRequestList = new ArrayList<>();
 		setShoppingCart(1, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(2, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(3, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(4, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(160d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestItem));
+		Assertions.assertEquals(160d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
 	}
 
 }
