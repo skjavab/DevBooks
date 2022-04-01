@@ -83,5 +83,21 @@ public class CalculateBooksPriceServiceTest {
 
 		Assertions.assertEquals(160d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
 	}
+	@Test
+	public void calculatePriceShouldReturn187WhenUserBuysFiveDifferentBook() {
+		bookApiRequestList = new ArrayList<>();
+		setShoppingCart(1, 1);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(2, 1);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(3, 1);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(4, 1);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(5, 1);
+		bookApiRequestList.add(bookApiRequest);
+
+		Assertions.assertEquals(187.5d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
+	}
 
 }

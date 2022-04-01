@@ -24,6 +24,10 @@ public class CalculateBooksPriceService {
 			double basePrice = bookApiRequestList.size() * CalculateBooksConstant.PRICE;
 			double discountedPriceForSet = basePrice - ((basePrice * 20) / CalculateBooksConstant.PERCENTAGE);
 			calculatedPrice += discountedPriceForSet;
+		}else if (bookApiRequestList.size() == 5) {
+			double basePrice = bookApiRequestList.size() * CalculateBooksConstant.PRICE;
+			double discountedPriceForSet = basePrice - ((basePrice * 25) / CalculateBooksConstant.PERCENTAGE);
+			calculatedPrice += discountedPriceForSet;
 		}
 		return calculatedPrice;
 
