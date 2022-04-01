@@ -1,5 +1,6 @@
 package com.bnpp.kata.developemetbooks.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.bnpp.kata.developemetbooks.constant.CalculateBooksConstant;
@@ -24,13 +25,32 @@ public class CalculateBooksPriceService {
 			double basePrice = bookApiRequestList.size() * CalculateBooksConstant.PRICE;
 			double discountedPriceForSet = basePrice - ((basePrice * 20) / CalculateBooksConstant.PERCENTAGE);
 			calculatedPrice += discountedPriceForSet;
-		}else if (bookApiRequestList.size() == 5) {
+		} else if (bookApiRequestList.size() == 5) {
 			double basePrice = bookApiRequestList.size() * CalculateBooksConstant.PRICE;
 			double discountedPriceForSet = basePrice - ((basePrice * 25) / CalculateBooksConstant.PERCENTAGE);
 			calculatedPrice += discountedPriceForSet;
 		}
 		return calculatedPrice;
 
+	}
+
+	public List<Integer> getBookIdList(List<BookApiRequest> bookInputList) {
+		List<Integer> extractedList = new ArrayList<>();
+		for (BookApiRequest bookApiRequest : bookInputList) {
+			addBookId(extractedList, bookApiRequest);
+		}
+		return extractedList;
+	}
+
+	private List<Integer> addBookId(List<Integer> extractedList, BookApiRequest bookApiRequest) {
+		if (bookApiRequest.getQuantity() == null) {
+			extractedList.add(bookApiRequest.getBookId());
+		} else {
+			for (int i = 0; i < bookApiRequest.getQuantity(); i++) {
+				extractedList.add(bookApiRequest.getBookId());
+			}
+		}
+		return extractedList;
 	}
 
 }
