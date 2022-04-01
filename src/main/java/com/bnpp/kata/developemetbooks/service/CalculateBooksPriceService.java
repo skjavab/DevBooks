@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.bnpp.kata.developemetbooks.constant.CalculateBooksConstant;
 import com.bnpp.kata.developemetbooks.model.BookApiRequest;
+import com.bnpp.kata.developemetbooks.model.DiscountEnum;
 
 public class CalculateBooksPriceService {
 
@@ -66,6 +67,7 @@ public class CalculateBooksPriceService {
 		}
 		return bookListSets;
 	}
+
 	private boolean addBookToExistingSet(List<List<Integer>> bookListSets, Integer bookId) {
 		boolean bookAddedToExistingSet = false;
 		for (List<Integer> list : bookListSets) {
@@ -77,9 +79,28 @@ public class CalculateBooksPriceService {
 		}
 		return bookAddedToExistingSet;
 	}
+
 	private void addBookToNewSet(List<List<Integer>> bookListSets, Integer bookId) {
 		List<Integer> newSet = new ArrayList<>();
 		newSet.add(bookId);
 		bookListSets.add(newSet);
 	}
+	
+	public double getBooksPrice(List<List<Integer>> bookListSets) {
+		double totalPrice = 0d;
+		for (List<Integer> bookIds : bookListSets) {
+			Double discountForSet = DiscountEnum.getDiscounts().get(bookIds.size());
+			totalPrice += calculateDiscountedPrice(bookIds, discountForSet);
+		}
+		return totalPrice;
+	}
+
+	private double calculateDiscountedPrice(List<Integer> set, double discountForSet) {
+		double calculatedPrice = 0d;
+		double basePrice = set.size() * 50;
+		double discountedPriceForSet = basePrice - ((basePrice * discountForSet) / 100.0);
+		calculatedPrice += discountedPriceForSet;
+		return calculatedPrice;
+	}
+
 }
